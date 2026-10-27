@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f7f4">
+  <meta name="description" content="SwapZone — find pre-loved things worth a second life.">
+  <title>SwapZone — Buy better. Sell easier.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <div class="announcement"><span class="announcement-dot"></span> A smarter way to give good things a second life <span class="announcement-right">Made for your next great find ↗</span></div>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="SwapZone homepage"><span class="brand-mark">S</span><span>swap<span class="brand-light">zone</span><small>BUY BETTER. SELL EASIER.</small></span></a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a class="nav-link active" href="#market">Explore</a>
+      <button class="nav-link" id="my-listings-btn" type="button">My listings</button>
+    </nav>
+    <div class="header-actions">
+      <span id="user-email" class="user-email hidden"></span>
+      <button class="button button-quiet" id="account-btn" type="button">Log in</button>
+      <button class="button button-dark" id="sell-btn" type="button"><span class="button-plus">＋</span> Sell an item</button>
+      <button class="mobile-menu" id="mobile-menu-btn" aria-label="Toggle navigation" aria-expanded="false" type="button">☰</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-line"></span> THE CIRCULAR MARKETPLACE</div>
+        <h1>Good things<br>deserve <span>another</span><br><span>round.</span></h1>
+        <p class="hero-description">Find your next favorite thing. Pass along what you no longer need. A little less waste, a lot more good finds.</p>
+        <a class="button button-dark hero-cta" href="#market">Explore the marketplace <span>↘</span></a>
+        <div class="hero-proof"><div class="avatar-stack"><span>m</span><span>n</span><span>g</span><span>+</span></div><div><strong>A community that gets it</strong><small>Buy pre-loved. Sell with purpose.</small></div></div>
+      </div>
+      <div class="hero-art" aria-label="Illustration of items ready for a second life">
+        <div class="art-circle art-circle-one"></div><div class="art-circle art-circle-two"></div>
+        <div class="floating-note note-top"><span class="note-icon">↗</span><span><strong>Find something good</strong><small>Right around the corner</small></span></div>
+        <div class="hero-product hero-product-back"><div class="headphone-arch"></div><div class="headphone-left"></div><div class="headphone-right"></div></div>
+        <div class="hero-product hero-product-main"><div class="shoe-graphic"><span></span></div><div class="product-sticker">SECOND<br>CHANCES<br><b>LOOK GOOD.</b></div></div>
+        <div class="hero-product hero-product-small"><div class="camera-graphic"><span></span><i></i></div></div>
+        <div class="floating-note note-bottom"><span class="sparkle">✳</span><span><strong>Less waste, more worth.</strong><small>Pass on the good stuff.</small></span></div>
+        <div class="art-caption">GOOD FINDS, BETTER FEELING. <span>✳</span></div>
+      </div>
+    </section>
+
+    <section class="market-section" id="market">
+      <div class="section-heading">
+        <div><div class="eyebrow"><span class="eyebrow-line"></span> THE GOOD STUFF</div><h2>Find your next <span>something.</span></h2></div>
+        <p>Pre-loved pieces, ready for a new chapter.</p>
+      </div>
+
+      <div class="filter-panel">
+        <label class="search-box" for="search-input"><span class="search-icon">⌕</span><input id="search-input" type="search" placeholder="Search for anything..." autocomplete="off"><kbd>↵</kbd></label>
+        <label class="select-wrap"><span class="field-caption">CATEGORY</span><select id="category-filter"><option value="all">All categories</option><option>Electronics</option><option>Home</option><option>Fashion</option><option>Sports</option><option>Other</option></select></label>
+        <label class="select-wrap"><span class="field-caption">CONDITION</span><select id="condition-filter"><option value="all">Any condition</option><option>New</option><option>Like New</option><option>Good</option><option>Fair</option></select></label>
+        <label class="select-wrap sort-wrap"><span class="field-caption">SORT BY</span><select id="sort-filter"><option value="newest">Recently added</option><option value="price-low">Price: low to high</option><option value="price-high">Price: high to low</option></select></label>
+      </div>
+
+      <div class="category-shortcuts" aria-label="Quick categories">
+        <button class="category-chip active" data-category="all" type="button"><span>✳</span> All finds</button>
+        <button class="category-chip" data-category="Electronics" type="button"><span>⌁</span> Electronics</button>
+        <button class="category-chip" data-category="Home" type="button"><span>⌂</span> Home & living</button>
+        <button class="category-chip" data-category="Fashion" type="button"><span>◇</span> Fashion</button>
+        <button class="category-chip" data-category="Sports" type="button"><span>↗</span> Sports</button>
+        <div class="results-count" id="results-count">Loading finds…</div>
+      </div>
+
+      <div id="setup-notice" class="setup-notice hidden" role="status"><strong>One quick setup step:</strong> add your Supabase project URL and publishable key in <code>js/config.js</code>, then run the SQL in <code>supabase-setup.sql</code>. Demo items are shown until then.</div>
+      <div id="status-message" class="status-message hidden" role="status"></div>
+      <div id="product-grid" class="product-grid" aria-live="polite"></div>
+      <div id="empty-state" class="empty-state hidden"><span class="empty-icon">⌕</span><h3>No finds just yet.</h3><p>Try a different search or clear a filter.</p><button class="button button-dark" id="clear-filters-btn" type="button">Clear filters</button></div>
+      <div class="bottom-cta"><span class="bottom-cta-icon">✳</span><div><h3>Got something good?</h3><p>Someone else might be looking for exactly that.</p></div><button class="button button-light" id="sell-bottom-btn" type="button">List an item <span>↗</span></button></div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><a class="brand footer-brand" href="#top"><span class="brand-mark">S</span><span>swap<span class="brand-light">zone</span><small>BUY BETTER. SELL EASIER.</small></span></a><span>Give good things another round.</span><span>© <span id="year"></span> SwapZone</span></footer>
+
+  <!-- Authentication modal -->
+  <div class="modal hidden" id="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+    <div class="modal-backdrop" data-close="auth-modal"></div>
+    <section class="modal-card auth-card">
+      <button class="modal-close" data-close="auth-modal" aria-label="Close" type="button">×</button>
+      <div class="modal-eyebrow">WELCOME TO THE ZONE</div><h2 id="auth-title">Good to have you <span>back.</span></h2><p class="modal-intro" id="auth-intro">Log in to manage your listings and find your next favorite thing.</p>
+      <div class="auth-tabs"><button type="button" class="auth-tab active" data-auth-mode="login">Log in</button><button type="button" class="auth-tab" data-auth-mode="signup">Create account</button></div>
+      <form id="auth-form" class="form-stack">
+        <label>Email address<input id="auth-email" type="email" placeholder="you@example.com" autocomplete="email" required></label>
+        <label>Password<input id="auth-password" type="password" placeholder="At least 6 characters" minlength="6" autocomplete="current-password" required></label>
+        <button class="button button-dark button-wide" id="auth-submit" type="submit">Log in <span>↗</span></button>
+        <p class="form-help" id="auth-help">By continuing, you agree to be kind and trade fairly.</p>
+        <p class="form-error hidden" id="auth-error" role="alert"></p>
+      </form>
+    </section>
+  </div>
+
+  <!-- Create / edit listing modal -->
+  <div class="modal hidden" id="listing-modal" role="dialog" aria-modal="true" aria-labelledby="listing-title">
+    <div class="modal-backdrop" data-close="listing-modal"></div>
+    <section class="modal-card listing-card">
+      <button class="modal-close" data-close="listing-modal" aria-label="Close" type="button">×</button>
+      <div class="modal-eyebrow">PASS IT ON</div><h2 id="listing-title">List something <span>good.</span></h2><p class="modal-intro">A clear photo and honest details help your item find a new home.</p>
+      <form id="listing-form" class="form-stack">
+        <input id="listing-id" type="hidden">
+        <label>Item title<input id="listing-name" type="text" maxlength="80" placeholder="e.g. Headphones in great shape" required></label>
+        <div class="form-row">
+          <label>Price (₾)<input id="listing-price" type="number" min="0" max="9999999" step="0.01" placeholder="120" required></label>
+          <label>Category<select id="listing-category" required><option value="Electronics">Electronics</option><option value="Home">Home</option><option value="Fashion">Fashion</option><option value="Sports">Sports</option><option value="Other">Other</option></select></label>
+        </div>
+        <label>Condition<select id="listing-condition" required><option>Like New</option><option>New</option><option>Good</option><option>Fair</option></select></label>
+        <label>Description<textarea id="listing-description" rows="3" maxlength="1000" placeholder="Tell people what makes this item worth having..." required></textarea></label>
+        <label class="upload-field"><span>Item photo <small>(WebP or AVIF · max 2 MB)</small></span><input id="listing-image" type="file" accept="image/webp,image/avif"><span class="upload-hint" id="image-hint">Choose a WebP or AVIF image. A photo is optional.</span></label>
+        <label>Video link <small>(optional · YouTube or Vimeo)</small><input id="listing-video" type="url" placeholder="https://youtu.be/... or https://vimeo.com/..."></label>
+        <p class="form-error hidden" id="listing-error" role="alert"></p>
+        <button class="button button-dark button-wide" id="listing-submit" type="submit">Publish listing <span>↗</span></button>
+        <p class="form-help">Only post items you are allowed to sell. Your listing can be edited or removed later.</p>
+      </form>
+    </section>
+  </div>
+
+  <!-- Product details modal -->
+  <div class="modal hidden" id="detail-modal" role="dialog" aria-modal="true" aria-labelledby="detail-title">
+    <div class="modal-backdrop" data-close="detail-modal"></div>
+    <section class="modal-card detail-card"><button class="modal-close" data-close="detail-modal" aria-label="Close" type="button">×</button><div id="detail-content"></div></section>
+  </div>
+
+  <div class="toast hidden" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
